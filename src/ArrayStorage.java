@@ -1,7 +1,5 @@
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+
 
 /**
  * Array based storage for Resumes
@@ -11,18 +9,11 @@ public class ArrayStorage {
 
     void clear() {
         // код тут
-        for (int i = 0; i < storage.size() - 1; i++) {
-            storage.set(i, null);
-        }
+       storage.clear();
     }
 
     void save(Resume r) {
-        for (int i = 0; i < storage.size() - 1; i++) {
-            if (storage.get(i) == null) {
-                storage.set(i, r);
-                return;
-            }
-        }
+       storage.add(r);
         // код тут
 
     }
@@ -53,13 +44,6 @@ public class ArrayStorage {
     }
 
     int size() {
-        int counter = 0;
-        for (int i = 0; i < storage.size() - 1; i++) {
-            if (storage.get(i) != null)
-                counter++;
-
-        }
-
-        return counter;
+     return   storage.size();
     }
 }
