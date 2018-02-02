@@ -5,33 +5,43 @@ import java.util.ArrayList;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private ArrayList<Resume> storage = new ArrayList<>();
+    Resume[] storage = new Resume[10000];
 
     void clear() {
         // код тут
-       storage.clear();
+        storage = new Resume[10000];
     }
 
     void save(Resume r) {
-       storage.add(r);
-        // код тут
+        for (int i = 0; i < storage.length - 1; i++) {
+            if (storage[i] == null) {
+                storage[i] = r;
+                break;
+            }
+        }
 
     }
 
     Resume get(String uuid) {
         // код тут
-        for (int i = 0; i < storage.size() - 1; i++) {
-            if (storage.get(i).toString().equals(uuid))
-               return storage.get(i);
+        for (Resume r : storage) {
+            try {
+                if (r.toString().equals(uuid))
+                    return r;
 
+            } catch (NullPointerException e) {
+                continue;
+            }
         }
         return null;
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < storage.size() - 1; i++) {
-            if (storage.get(i).toString().equals(uuid))
-                storage.remove(i);
+        for (int i = 0; i < storage.length - 1; i++) {
+            if (uuid.equals(storage[i].toString())) {
+                storage[i] = null;
+                break;
+            }
         }
     }
 
@@ -40,10 +50,10 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
 
-        return storage.toArray(new Resume[storage.size()]);
+        return storage;
     }
 
     int size() {
-     return   storage.size();
+        return storage.length;
     }
 }
