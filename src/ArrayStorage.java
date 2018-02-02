@@ -6,44 +6,58 @@ import java.util.ArrayList;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size = 0;
 
     void clear() {
         // код тут
-        storage = new Resume[10000];
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
+        }
+        size = 0;
     }
 
     void save(Resume r) {
-        for (int i = 0; i < storage.length - 1; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                break;
-            }
-        }
+        storage[size] = r;
+        size++;
 
     }
 
     Resume get(String uuid) {
         // код тут
-        for (Resume r : storage) {
-            try {
-                if (r.toString().equals(uuid))
-                    return r;
+        for (int i = 0; i < size; i++) {
+            if (storage[i] != null) {
+                if (storage[i].uuid.equals(uuid))
+                    return storage[i];
 
-            } catch (NullPointerException e) {
-                continue;
             }
         }
         return null;
     }
 
     void delete(String uuid) {
+        int index = -1;
         for (int i = 0; i < storage.length - 1; i++) {
             if (uuid.equals(storage[i].toString())) {
                 storage[i] = null;
+                size--;
+                index = i;
                 break;
             }
         }
+
+        for (int i = storage.length - 1; i > 0; i--) {
+            if (index >= 0) {
+                if (storage[i] != null) {
+                    storage[index] = storage[i];
+                    storage[i] = null;
+                    break;
+                }
+            }
+        }
+
+
     }
+
 
     /**
      * @return array, contains only Resumes in storage (without null)
@@ -54,6 +68,6 @@ public class ArrayStorage {
     }
 
     int size() {
-        return storage.length;
+        return size;
     }
 }
