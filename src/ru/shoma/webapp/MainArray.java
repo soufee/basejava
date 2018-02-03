@@ -1,9 +1,14 @@
+package ru.shoma.webapp;
+
+import ru.shoma.webapp.model.Resume;
+import ru.shoma.webapp.storage.ArrayStorage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Test for com.urise.webapp.storage.ArrayStorage
+ * Test for com.urise.webapp.storage.ru.shoma.webapp.storage.ArrayStorage
  */
 public class MainArray {
     private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
@@ -12,7 +17,7 @@ public class MainArray {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | save uuid | delete uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | save uuid | delete uuid | get uuid | update uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 2) {
                 System.out.println("Неверная команда.");
@@ -30,18 +35,46 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
+                    if (params.length!=2){
+                        System.out.println("Для сохранения новой записи после слова size нужно ввести идентификатор");
+                        break;
+                    } else {
                     r = new Resume();
-                    r.uuid = uuid;
+                    r.setUuid(uuid);
                     ARRAY_STORAGE.save(r);
                     printAll();
-                    break;
+                    break;}
                 case "delete":
+                    if (params.length!=2){
+                        System.out.println("Для удаления записи после слова delete нужно ввести идентификатор");
+                        break;
+                    } else {
                     ARRAY_STORAGE.delete(uuid);
                     printAll();
                     break;
+                    }
                 case "get":
+                    if (params.length!=2){
+                        System.out.println("Для получения записи после слова get нужно ввести идентификатор");
+                        break;
+                    } else {
                     System.out.println(ARRAY_STORAGE.get(uuid));
                     break;
+                    }
+
+                case "update":
+                    if (params.length!=2){
+                        System.out.println("Для обновления записи после слова update нужно ввести идентификатор");
+                        break;
+                    } else {
+                    r = new Resume();
+                    r.setUuid(uuid);
+                    System.out.println("Введите новое значение: ");
+                    String newUuid = reader.readLine();
+                    ARRAY_STORAGE.update(r, newUuid);
+                    printAll();
+                    break;
+                    }
                 case "clear":
                     ARRAY_STORAGE.clear();
                     printAll();
