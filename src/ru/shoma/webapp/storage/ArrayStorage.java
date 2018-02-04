@@ -20,7 +20,7 @@ public class ArrayStorage {
     }
 
 
-    private int isResumeExists(String uuid) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid))
                 return i;
@@ -30,7 +30,7 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        int index = isResumeExists(r.getUuid());
+        int index = getIndex(r.getUuid());
         if (index != -1) {
 
             storage[index] = r;
@@ -45,7 +45,7 @@ public class ArrayStorage {
         if (size == 10000) {
             System.out.println("База переполнена. Удалите ненужные записи");
         } else {
-            int index = isResumeExists(r.getUuid());
+            int index = getIndex(r.getUuid());
             if (index == -1) {
                 storage[size] = r;
                 size++;
@@ -56,7 +56,7 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        int index = isResumeExists(uuid);
+        int index = getIndex(uuid);
         if (index != -1) {
             return storage[index];
 
@@ -67,7 +67,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        int index = isResumeExists(uuid);
+        int index = getIndex(uuid);
         if (index != -1) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
