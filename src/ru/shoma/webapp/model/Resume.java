@@ -6,13 +6,12 @@ package ru.shoma.webapp.model;
 public class Resume {
     // Unique identifier
     private String uuid;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o==null || !(o instanceof Resume)) return false;
-
+        if (o == null || !(o instanceof Resume)) return false;
         Resume resume = (Resume) o;
-
         return uuid.equals(resume.uuid);
     }
 
@@ -28,7 +27,6 @@ public class Resume {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-
 
 
     @Override
