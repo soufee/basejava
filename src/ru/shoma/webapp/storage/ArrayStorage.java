@@ -19,27 +19,22 @@ public class ArrayStorage {
         size = 0;
     }
 
-    private boolean isResumeExists(Resume r) {
-        return isResumeExists(r.getUuid());
-    }
 
-    private boolean isResumeExists(String uuid) {
+    private int isResumeExists(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid))
-                return true;
+                return i;
         }
-        return false;
+        return -1;
 
     }
 
-    public void update(Resume r, String s) {
+    public void update(Resume r) {
+        int index = isResumeExists(r.getUuid());
+        if (index != -1) {
 
-        if (isResumeExists(r)) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].getUuid().equals(r.getUuid())) {
-                    storage[i].setUuid(s);
-                }
-            }
+            storage[index] = r;
+
         } else {
             System.out.println("Резюме с uuid " + r.getUuid() + " в базе нет.");
         }
@@ -50,7 +45,8 @@ public class ArrayStorage {
         if (size == 10000) {
             System.out.println("База переполнена. Удалите ненужные записи");
         } else {
-            if (!isResumeExists(r)) {
+            int index = isResumeExists(r.getUuid());
+            if (index == -1) {
                 storage[size] = r;
                 size++;
             } else {
@@ -60,14 +56,10 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (isResumeExists(uuid)) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i] != null) {
-                    if (storage[i].getUuid().equals(uuid))
-                        return storage[i];
+        int index = isResumeExists(uuid);
+        if (index != -1) {
+            return storage[index];
 
-                }
-            }
         } else {
             System.out.println("Не удалось найти запись с идентификатором " + uuid);
         }
@@ -75,15 +67,12 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (isResumeExists(uuid)) {
-            for (int i = 0; i < size; i++) {
-                if (uuid.equals(storage[i].getUuid())) {
-                    storage[i] = storage[size - 1];
-                    storage[size - 1] = null;
-                    size--;
-                    break;
-                }
-            }
+        int index = isResumeExists(uuid);
+        if (index != -1) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+
         } else {
             System.out.println("Не удалось найти запись с идентификатором " + uuid);
         }
@@ -94,8 +83,8 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] result = Arrays.copyOf(storage, size);
-        return result;
+
+        return Arrays.copyOf(storage, size);
     }
 
     public int size() {

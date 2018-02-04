@@ -69,9 +69,7 @@ public class MainArray {
                     } else {
                     r = new Resume();
                     r.setUuid(uuid);
-                    System.out.println("Введите новое значение: ");
-                    String newUuid = reader.readLine();
-                    ARRAY_STORAGE.update(r, newUuid);
+                    ARRAY_STORAGE.update(r);
                     printAll();
                     break;
                     }
