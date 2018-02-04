@@ -42,18 +42,16 @@ public class ArrayStorage {
 
 
     public void save(Resume r) {
-        if (size == 10000) {
+        if (size == storage.length) {
             System.out.println("База переполнена. Удалите ненужные записи");
+        } else if (getIndex(r.getUuid()) != -1) {
+            System.out.println("Такая запись уже существует.");
         } else {
-            int index = getIndex(r.getUuid());
-            if (index == -1) {
-                storage[size] = r;
-                size++;
-            } else {
-                System.out.println("Такая запись уже существует.");
-            }
+            storage[size] = r;
+            size++;
         }
     }
+
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
