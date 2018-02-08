@@ -3,14 +3,14 @@ package ru.shoma.webapp.model;
 /**
  * com.urise.webapp.model.ru.shoma.webapp.model.Resume class
  */
-public class Resume implements Comparable<Resume>{
+public class Resume implements Comparable<Resume> {
     // Unique identifier
     private String uuid;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Resume)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
         return uuid.equals(resume.uuid);
     }
@@ -36,6 +36,8 @@ public class Resume implements Comparable<Resume>{
 
     @Override
     public int compareTo(Resume o) {
-        return uuid.compareTo(o.getUuid());
+      return this.uuid.compareTo(o.getUuid());
     }
+
+
 }

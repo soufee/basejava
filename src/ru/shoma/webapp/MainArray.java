@@ -2,17 +2,16 @@ package ru.shoma.webapp;
 
 import ru.shoma.webapp.model.Resume;
 import ru.shoma.webapp.storage.ArrayStorage;
+import ru.shoma.webapp.storage.SortedArrayStorage;
 import ru.shoma.webapp.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Test for com.urise.webapp.storage.ru.shoma.webapp.storage.ArrayStorage
- */
+
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
