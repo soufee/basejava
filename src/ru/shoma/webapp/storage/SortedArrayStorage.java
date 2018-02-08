@@ -8,45 +8,22 @@ import java.util.Random;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-
     @Override
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index == -1) {
-            System.out.println("Resume " + r.getUuid() + " not exist");
-        } else {
-            storage[index] = r;
-            if (size>1)  Arrays.sort(storage);
+    protected void deletedElement(int index) {
+        int numMove = size - index - 1;
+        if (numMove > 0) {
+            System.arraycopy(storage, index + 1, storage, index, numMove);
         }
     }
 
     @Override
-    public void save(Resume r) {
-        if (getIndex(r.getUuid()) >=0) {
-            System.out.println("Resume " + r.getUuid() + " already exist");
-        } else if (size >= STORAGE_LIMIT) {
-            System.out.println("Storage overflow");
-        } else {
-            storage[size] = r;
-            size++;
-          if (size>1)
-              Arrays.sort(storage);
-        }
-    }
+    protected void insertElement(Resume r, int index) {
+        int indexToInsert = -index - 1;
 
-    @Override
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index >=0) {
-            System.out.println("Resume " + uuid + " not exist");
-        } else {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
-            if (size>1)  Arrays.sort(storage);
-        }
-    }
+            System.arraycopy(storage, indexToInsert, storage, indexToInsert + 1, size - indexToInsert);
+            storage[indexToInsert] = r;
 
+    }
 
     @Override
     protected int getIndex(String uuid) {
@@ -54,6 +31,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         searchKey.setUuid(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
+
+
 
 
 }
