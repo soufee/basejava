@@ -3,7 +3,6 @@ package ru.shoma.webapp.storage;
 import ru.shoma.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.Random;
 
 
 public class SortedArrayStorage extends AbstractArrayStorage {
@@ -20,19 +19,16 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     protected void insertElement(Resume r, int index) {
         int indexToInsert = -index - 1;
 
-            System.arraycopy(storage, indexToInsert, storage, indexToInsert + 1, size - indexToInsert);
-            storage[indexToInsert] = r;
+        System.arraycopy(storage, indexToInsert, storage, indexToInsert + 1, size - indexToInsert);
+        storage[indexToInsert] = r;
 
     }
 
     @Override
     protected int getIndex(String uuid) {
-        Resume searchKey = new Resume();
-        searchKey.setUuid(uuid);
+        Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
-
-
 
 
 }

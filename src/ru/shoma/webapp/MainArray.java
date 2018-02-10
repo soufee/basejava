@@ -2,7 +2,6 @@ package ru.shoma.webapp;
 
 import ru.shoma.webapp.model.Resume;
 import ru.shoma.webapp.storage.ArrayStorage;
-import ru.shoma.webapp.storage.SortedArrayStorage;
 import ru.shoma.webapp.storage.Storage;
 
 import java.io.BufferedReader;
@@ -39,8 +38,7 @@ public class MainArray {
                         System.out.println("Для сохранения новой записи после слова size нужно ввести идентификатор");
                         break;
                     } else {
-                        r = new Resume();
-                        r.setUuid(uuid);
+                        r = new Resume(uuid);
                         ARRAY_STORAGE.save(r);
                         printAll();
                         break;
@@ -68,8 +66,7 @@ public class MainArray {
                         System.out.println("Для обновления записи после слова update нужно ввести идентификатор");
                         break;
                     } else {
-                        r = new Resume();
-                        r.setUuid(uuid);
+                        r = new Resume(uuid);
                         ARRAY_STORAGE.update(r);
                         printAll();
                         break;
