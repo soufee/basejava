@@ -6,12 +6,11 @@ import java.util.UUID;
  * com.urise.webapp.model.ru.shoma.webapp.model.Resume class
  */
 public class Resume implements Comparable<Resume> {
-    // Unique identifier
-    private final String uuid;
-    private String fullName;
 
-    public Resume(){
-      this(UUID.randomUUID().toString());
+    private final String uuid;
+
+    public Resume() {
+        this(UUID.randomUUID().toString());
     }
 
     public Resume(String uuid) {
@@ -35,7 +34,6 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-
     @Override
     public String toString() {
         return uuid;
@@ -43,11 +41,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-      return this.uuid.compareTo(o.getUuid());
+        return this.uuid.compareTo(o.getUuid());
     }
 
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 }

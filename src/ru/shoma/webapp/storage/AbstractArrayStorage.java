@@ -8,13 +8,9 @@ import ru.shoma.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-     static final int STORAGE_LIMIT = 10000;
-
+    static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
-
-
-
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -35,27 +31,23 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             throw new ExistStorageException(r.getUuid());
         } else if (size >= STORAGE_LIMIT) {
-           throw new StorageException(r.getUuid(), "Хранилище переполнено");
+            throw new StorageException(r.getUuid(), "Хранилище переполнено");
         } else {
             insertElement(r, index);
             size++;
         }
     }
 
-
-
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index < 0 ) {
+        if (index < 0) {
             throw new NotExistStorageException(uuid);
         } else {
-          deletedElement(index);
+            deletedElement(index);
             storage[size - 1] = null;
             size--;
         }
     }
-
-
 
     public int size() {
         return size;
@@ -64,8 +56,8 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-           throw new NotExistStorageException(uuid);
-           }
+            throw new NotExistStorageException(uuid);
+        }
         return storage[index];
     }
 
@@ -74,6 +66,8 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     protected abstract int getIndex(String uuid);
+
     protected abstract void deletedElement(int index);
+
     protected abstract void insertElement(Resume r, int index);
 }
