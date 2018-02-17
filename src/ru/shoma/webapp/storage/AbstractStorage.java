@@ -11,10 +11,6 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getSearchKey(String uuid);
 
-    protected abstract void fillDeletedElement(int index);
-
-    protected abstract void insertElement(Resume r, int index);
-
     protected abstract void doUpdate(Resume r, Object searchKey);
 
     protected abstract void doDelete(Object searchKey);
