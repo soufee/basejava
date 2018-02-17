@@ -23,8 +23,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void doDelete(Object searchKey) {
-        fillDeletedElement((Integer)searchKey);
-        storage[size-1] = null;
+        fillDeletedElement((Integer) searchKey);
+        storage[size - 1] = null;
         size--;
     }
 
@@ -33,7 +33,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size == STORAGE_LIMIT) {
             throw new StorageException(r.getUuid(), "Хранилище переполнено");
         } else {
-            insertElement(r, (Integer)searchKey);
+            insertElement(r, (Integer) searchKey);
             size++;
         }
 
@@ -41,12 +41,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return storage[(Integer)searchKey];
+        return storage[(Integer) searchKey];
     }
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return (Integer)searchKey >=0;
+        return (Integer) searchKey >= 0;
     }
 
     public int size() {

@@ -8,7 +8,7 @@ import ru.shoma.webapp.exception.StorageException;
 import ru.shoma.webapp.model.Resume;
 
 
-public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
+public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     protected AbstractArrayStorageTest(Storage storage) {
         super(storage);
@@ -16,11 +16,11 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
 
     @Test(expected = StorageException.class)
     public void isOverFlow() throws Exception {
-        try{
-        for (int i = 3; i < 10000; i++) {
-            storage.save(new Resume());
-        }
-        }catch (Exception e){
+        try {
+            for (int i = 3; i < 10000; i++) {
+                storage.save(new Resume());
+            }
+        } catch (Exception e) {
             Assert.fail();
         }
         storage.save(new Resume());
