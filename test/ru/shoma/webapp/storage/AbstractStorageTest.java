@@ -4,8 +4,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ru.shoma.webapp.exception.NotExistStorageException;
-import ru.shoma.webapp.exception.StorageException;
 import ru.shoma.webapp.model.Resume;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class AbstractStorageTest {
@@ -13,9 +15,9 @@ public abstract class AbstractStorageTest {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
-    private static Resume UUID1 = new Resume (UUID_1);
-    private static Resume UUID2 = new Resume (UUID_2);
-    private static Resume UUID3 = new Resume (UUID_3);
+    private static Resume UUID1 = new Resume(UUID_1);
+    private static Resume UUID2 = new Resume(UUID_2);
+    private static Resume UUID3 = new Resume(UUID_3);
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -50,12 +52,9 @@ public abstract class AbstractStorageTest {
         Assert.assertNotNull(r);
     }
 
-
-
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() throws Exception {
         storage.delete(new Resume().getUuid());
-
     }
 
     @Test
@@ -80,14 +79,15 @@ public abstract class AbstractStorageTest {
         storage.get(UUID_1);
     }
 
-
     @Test
-    public void getAll() throws Exception {
-        Resume[] array = storage.getAll();
-        Assert.assertEquals(3, array.length);
-        Assert.assertEquals(UUID1, array[0]);
-        Assert.assertEquals(UUID2, array[1]);
-        Assert.assertEquals(UUID3, array[2]);
+    public void getAllSorted() throws Exception {
+        List<Resume> list = storage.getAllSorted();
+        List<Resume> listExpected = new ArrayList<>();
+        listExpected.add(UUID1);
+        listExpected.add(UUID2);
+        listExpected.add(UUID3);
+
+        Assert.assertEquals(list, listExpected);
     }
 
 }

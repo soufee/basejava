@@ -5,9 +5,6 @@ import ru.shoma.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Shoma on 15.02.2018.
- */
 public class ListStorage extends AbstractStorage {
     private List<Resume> storage = new ArrayList<>();
 
@@ -17,8 +14,10 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[storage.size()]);
+    public List<Resume> getAllSorted() {
+      List<Resume> result = storage;
+      result.sort(COMPARATOR);
+        return result;
     }
 
     @Override
@@ -51,7 +50,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return storage.get(((Integer) searchKey).intValue());
+        return storage.get((Integer) searchKey);
     }
 
     @Override

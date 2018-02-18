@@ -2,13 +2,9 @@ package ru.shoma.webapp.storage;
 
 import ru.shoma.webapp.model.Resume;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-/**
- * Created by Shoma on 15.02.2018.
- */
 public class MapStorage extends AbstractStorage {
 
     private Map<String, Resume> storage = new HashMap<>();
@@ -19,10 +15,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        Resume[] resumes = storage.values().toArray(new Resume[storage.size()]);
-        Arrays.sort(resumes);
-        return resumes;
+    public List<Resume> getAllSorted() {
+        return storage.values().stream().sorted().collect(Collectors.toList());
     }
 
     @Override
@@ -53,7 +47,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return storage.get((String) searchKey);
+        return storage.get(searchKey);
     }
 
     @Override

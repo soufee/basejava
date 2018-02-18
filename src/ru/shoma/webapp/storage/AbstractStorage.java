@@ -4,9 +4,8 @@ import ru.shoma.webapp.exception.ExistStorageException;
 import ru.shoma.webapp.exception.NotExistStorageException;
 import ru.shoma.webapp.model.Resume;
 
-/**
- * Created by Shoma on 15.02.2018.
- */
+import java.util.Comparator;
+
 public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getSearchKey(String uuid);
@@ -20,6 +19,8 @@ public abstract class AbstractStorage implements Storage {
     protected abstract Resume doGet(Object searchKey);
 
     protected abstract boolean isExist(Object searchKey);
+
+    protected static final Comparator<Resume> COMPARATOR = Comparator.comparing(Resume::getUuid);
 
     public void update(Resume r) {
         Object searchKey = getExistedSearchKey(r.getUuid());
@@ -56,4 +57,6 @@ public abstract class AbstractStorage implements Storage {
         }
         return searchKey;
     }
+
+
 }

@@ -4,6 +4,9 @@ import ru.shoma.webapp.exception.StorageException;
 import ru.shoma.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -36,7 +39,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
             insertElement(r, (Integer) searchKey);
             size++;
         }
-
     }
 
     @Override
@@ -53,8 +55,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public List<Resume> getAllSorted() {
+        return Arrays.stream(storage).filter(Objects::nonNull).sorted().collect(Collectors.toList());
     }
 
     protected abstract Integer getSearchKey(String uuid);

@@ -4,7 +4,6 @@ import ru.shoma.webapp.model.Resume;
 
 import java.util.Arrays;
 
-
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
@@ -20,7 +19,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int indexToInsert = -index - 1;
         System.arraycopy(storage, indexToInsert, storage, indexToInsert + 1, size - indexToInsert);
         storage[indexToInsert] = r;
-
     }
 
     @Override

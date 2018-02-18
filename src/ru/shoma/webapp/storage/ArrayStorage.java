@@ -2,11 +2,7 @@ package ru.shoma.webapp.storage;
 
 import ru.shoma.webapp.model.Resume;
 
-import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override

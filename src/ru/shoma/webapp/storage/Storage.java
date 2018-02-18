@@ -2,9 +2,8 @@ package ru.shoma.webapp.storage;
 
 import ru.shoma.webapp.model.Resume;
 
-/**
- * Created by Shoma on 04.02.2018.
- */
+import java.util.List;
+
 public interface Storage {
 
     void clear();
@@ -17,7 +16,7 @@ public interface Storage {
 
     void delete(String uuid);
 
-    Resume[] getAll();
-
+  //  Resume[] getAll();
+  List<Resume> getAllSorted();
     int size();
 }
