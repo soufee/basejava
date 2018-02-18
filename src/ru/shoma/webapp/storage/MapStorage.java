@@ -2,6 +2,7 @@ package ru.shoma.webapp.storage;
 
 import ru.shoma.webapp.model.Resume;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,9 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return storage.values().toArray(new Resume[storage.size()]);
+        Resume[] resumes = storage.values().toArray(new Resume[storage.size()]);
+        Arrays.sort(resumes);
+        return resumes;
     }
 
     @Override
