@@ -48,16 +48,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return (Integer) searchKey >= 0;
+        return  getSearchKey((String) searchKey) >= 0;
     }
 
     public int size() {
         return size;
     }
 
-    public List<Resume> getAllSorted() {
-        return Arrays.stream(storage).filter(Objects::nonNull).sorted().collect(Collectors.toList());
+    protected List<Resume> getAllResumes() {
+        List<Resume> list = Arrays.asList(storage).stream().filter(s -> s != null).collect(Collectors.toList());
+        return list;
     }
+
 
     protected abstract Integer getSearchKey(String uuid);
 

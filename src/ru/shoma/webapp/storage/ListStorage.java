@@ -21,6 +21,11 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
+    protected List<Resume> getAllResumes() {
+        return null;
+    }
+
+    @Override
     public int size() {
         return storage.size();
     }

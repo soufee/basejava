@@ -4,7 +4,8 @@ import ru.shoma.webapp.exception.ExistStorageException;
 import ru.shoma.webapp.exception.NotExistStorageException;
 import ru.shoma.webapp.model.Resume;
 
-import java.util.Comparator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractStorage implements Storage {
 
@@ -57,6 +58,12 @@ public abstract class AbstractStorage implements Storage {
         }
         return searchKey;
     }
+    public List<Resume> getAllSorted() {
+        List<Resume> list = getAllResumes();
+        Collections.sort(list);
+        return list;
+        }
 
+    protected abstract List<Resume> getAllResumes();
 
 }
