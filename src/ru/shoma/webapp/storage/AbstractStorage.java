@@ -5,7 +5,7 @@ import ru.shoma.webapp.exception.NotExistStorageException;
 import ru.shoma.webapp.model.Resume;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public abstract class AbstractStorage implements Storage {
 
