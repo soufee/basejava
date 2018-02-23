@@ -1,7 +1,6 @@
 package ru.shoma.webapp;
 
 import ru.shoma.webapp.model.Resume;
-import ru.shoma.webapp.storage.ArrayStorage;
 import ru.shoma.webapp.storage.MapStorage;
 import ru.shoma.webapp.storage.Storage;
 

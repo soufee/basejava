@@ -20,5 +20,5 @@
 - <a href="https://ru.wikipedia.org/wiki/Шаблонный_метод_(шаблон_проектирования)">Шаблонный метод</a>
 
 ## Домашнее задание
-- Закончить реализацию `AbstractArrayStorage`, `ru.shoma.webapp.storage.ArrayStorage`, `SortedArrayStorage` (`SortedArrayStorage` хранит элементы отсортированными, сортировать весь массив не надо).
-- Сделать проверку `ru.shoma.webapp.storage.ArrayStorage.update`
+- Закончить реализацию `AbstractArrayStorage`, `ru.shoma.webapp.storage.AbstractStorage.ArrayStorage`, `SortedArrayStorage` (`SortedArrayStorage` хранит элементы отсортированными, сортировать весь массив не надо).
+- Сделать проверку `ru.shoma.webapp.storage.AbstractStorage.ArrayStorage.update`
