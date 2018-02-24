@@ -1,7 +1,7 @@
 package ru.shoma.webapp;
 
 import ru.shoma.webapp.model.Resume;
-import ru.shoma.webapp.storage.MapStorage;
+import ru.shoma.webapp.storage.*;
 import ru.shoma.webapp.storage.Storage;
 
 import java.io.BufferedReader;
@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new MapStorage();
+    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

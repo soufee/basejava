@@ -2,11 +2,12 @@ package ru.shoma.webapp;
 
 import ru.shoma.webapp.model.Resume;
 import ru.shoma.webapp.storage.AbstractStorage;
+import ru.shoma.webapp.storage.ArrayStorage;
 import ru.shoma.webapp.storage.Storage;
 
 
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new AbstractStorage.ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1", "uuid1");

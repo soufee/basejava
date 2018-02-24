@@ -15,14 +15,14 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-      List<Resume> result = storage;
+      List<Resume> result = getAllResumes();
       result.sort(COMPARATOR);
         return result;
     }
 
     @Override
     protected List<Resume> getAllResumes() {
-        return null;
+        return storage;
     }
 
     @Override
