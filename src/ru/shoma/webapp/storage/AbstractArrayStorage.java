@@ -3,6 +3,7 @@ package ru.shoma.webapp.storage;
 import ru.shoma.webapp.exception.StorageException;
 import ru.shoma.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -48,7 +49,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-       return  (Integer) searchKey >= 0;
+        return (Integer) searchKey >= 0;
     }
 
     public int size() {
@@ -56,8 +57,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     protected List<Resume> getAllResumes() {
-        List<Resume> list = Arrays.asList(storage).stream().filter(s -> s != null).collect(Collectors.toList());
-        return list;
+        Resume[] r = new Resume[size];
+        System.arraycopy(storage, 0, r, 0, size);
+        return Arrays.asList(r);
     }
 
 

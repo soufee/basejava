@@ -13,16 +13,17 @@ public class ListStorage extends AbstractStorage {
         storage.clear();
     }
 
-    @Override
-    public List<Resume> getAllSorted() {
-      List<Resume> result = getAllResumes();
-      result.sort(COMPARATOR);
-        return result;
-    }
+//    @Override
+//    public List<Resume> getAllSorted() {
+//      List<Resume> result = getAllResumes();
+//      result.sort(COMPARATOR);
+//        return result;
+//    }
 
     @Override
     protected List<Resume> getAllResumes() {
-        return storage;
+        List<Resume> resumes = new ArrayList<>(storage);
+        return resumes;
     }
 
     @Override

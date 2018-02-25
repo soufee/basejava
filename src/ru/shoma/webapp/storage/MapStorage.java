@@ -14,14 +14,10 @@ public class MapStorage extends AbstractStorage {
         storage.clear();
     }
 
-//    @Override
-//    public List<Resume> getAllSorted() {
-//        return storage.values().stream().sorted().collect(Collectors.toList());
-//    }
-
     @Override
     protected List<Resume> getAllResumes() {
-        return storage.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(storage.values());
+                //storage.values().stream().collect(Collectors.toList());
     }
 
     @Override
