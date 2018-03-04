@@ -39,7 +39,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume resume = UUID2;
+        Resume resume = new Resume(UUID_2, UUID_2);
         storage.update(resume);
         Assert.assertTrue(resume == storage.get(UUID_2));
     }

@@ -5,7 +5,7 @@ import ru.shoma.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
     private List<Resume> storage = new ArrayList<>();
 
     @Override
@@ -13,17 +13,9 @@ public class ListStorage extends AbstractStorage {
         storage.clear();
     }
 
-//    @Override
-//    public List<Resume> getAllSorted() {
-//      List<Resume> result = getAllResumes();
-//      result.sort(COMPARATOR);
-//        return result;
-//    }
-
     @Override
     protected List<Resume> getAllResumes() {
-        List<Resume> resumes = new ArrayList<>(storage);
-        return resumes;
+        return new ArrayList<>(storage);
     }
 
     @Override
@@ -40,27 +32,27 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
-        storage.set((Integer) searchKey, r);
+    protected void doUpdate(Resume r, Integer searchKey) {
+        storage.set( searchKey, r);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
+    protected void doDelete(Integer searchKey) {
         storage.remove((int) searchKey);
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
+    protected void doSave(Resume r, Integer searchKey) {
         storage.add(r);
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage.get((Integer) searchKey);
+    protected Resume doGet(Integer searchKey) {
+        return storage.get(searchKey);
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
+    protected boolean isExist(Integer searchKey) {
         return searchKey != null;
     }
 }

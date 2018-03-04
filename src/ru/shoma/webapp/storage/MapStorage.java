@@ -3,9 +3,8 @@ package ru.shoma.webapp.storage;
 import ru.shoma.webapp.model.Resume;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage <String>{
 
     private Map<String, Resume> storage = new HashMap<>();
 
@@ -17,7 +16,6 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected List<Resume> getAllResumes() {
         return new ArrayList<>(storage.values());
-                //storage.values().stream().collect(Collectors.toList());
     }
 
     @Override
@@ -31,28 +29,28 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
-        storage.replace((String) searchKey, r);
+    protected void doUpdate(Resume r, String searchKey) {
+        storage.replace(searchKey, r);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        storage.remove(searchKey.toString());
+    protected void doDelete(String searchKey) {
+        storage.remove(searchKey);
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
-        storage.put(r.getUuid(), r);
+    protected void doSave(Resume r, String searchKey) {
+        storage.put(searchKey, r);
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
+    protected Resume doGet(String searchKey) {
         return storage.get(searchKey);
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
+    protected boolean isExist(String searchKey) {
 
-        return storage.containsKey(getSearchKey((String) searchKey));
+        return storage.containsKey(getSearchKey(searchKey));
     }
 }

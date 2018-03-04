@@ -23,7 +23,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     public void isOverFlow() throws Exception {
         try {
             for (int i = 3; i < 10000; i++) {
-                storage.save(new Resume("Ashamaz"));
+                storage.save(new Resume("Ashamaz"+i));
             }
         } catch (Exception e) {
             Assert.fail();
