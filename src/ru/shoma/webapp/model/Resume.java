@@ -6,8 +6,8 @@ public class Resume implements Comparable<Resume> {
 
     private final String uuid;
     private String fullName;
-    private Map<ContactType, String> contacts = new HashMap<>();
-    private Map<SectionType, Section> sections = new HashMap<>();
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -44,6 +44,10 @@ public class Resume implements Comparable<Resume> {
         sections.put(ct, s);
     }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,7 +72,17 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return uuid + " : " + fullName;
+        StringBuilder summary = new StringBuilder("Резюме № "+uuid+"\n");
+        summary.append("ФИО: "+fullName+"\n");
+        summary.append("Контактная информация\n");
+        for (Map.Entry<ContactType, String> entry:contacts.entrySet()) {
+            summary.append(entry.getKey()+" : "+entry.getValue()+"\n");
+        }
+        for (Map.Entry<SectionType, Section> entry:sections.entrySet()) {
+            summary.append(entry.getKey()+" : \n"+entry.getValue()+"\n");
+        }
+
+        return summary.toString();
     }
 
     @Override

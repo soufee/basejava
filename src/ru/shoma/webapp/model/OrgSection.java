@@ -15,57 +15,9 @@ public class OrgSection extends Section {
         return new ArrayList<>(organizations);
     }
 
-    class Organization {
-        String name;
-        String position;
-        LocalDate startDate;
-        LocalDate endDate;
-
-        public Organization(String name, String position, LocalDate startDate, LocalDate endDate) {
-            Objects.requireNonNull(name, "The name of organization must not be null");
-            Objects.requireNonNull(position, "The position must not be null");
-            Objects.requireNonNull(startDate, "The start date must not be null");
-            this.name = name;
-            this.position = position;
-            this.startDate = startDate;
-            this.endDate = endDate;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getPosition() {
-            return position;
-        }
-
-        public void setPosition(String position) {
-            this.position = position;
-        }
-
-        public LocalDate getStartDate() {
-            return startDate;
-        }
-
-        public void setStartDate(LocalDate startDate) {
-            this.startDate = startDate;
-        }
-
-        public LocalDate getEndDate() {
-            return endDate;
-        }
-
-        public void setEndDate(LocalDate endDate) {
-            this.endDate = endDate;
-        }
-    }
 
     public void addOrganization(Organization organization) {
-
+        organizations.add(organization);
     }
 
     public void updateOrganization(Organization organization) {
@@ -74,5 +26,14 @@ public class OrgSection extends Section {
 
     public void deleteOrganization(Organization organization) {
 
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Organization s:organizations) {
+            sb.append("- "+s+"\n");
+        }
+        return sb.toString();
     }
 }
