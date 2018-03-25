@@ -2,11 +2,18 @@ package ru.shoma.webapp;
 
 import ru.shoma.webapp.model.*;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class MyMain {
     public static void main(String[] args) {
-        Resume resume = new Resume("1", "Ashamaz");
+       /* Resume resume = new Resume("1", "Ashamaz");
         resume.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
         resume.setFullName("Григорий Кислин");
         resume.addContact(ContactType.HOMEPHONE, "+7(921) 855-0482");
@@ -47,14 +54,14 @@ public class MyMain {
         resume.addSectionItem(SectionType.QUALIFICATIONS, qualifications);
 
         OrgSection experience = new OrgSection();
-        Organization organization1 = new Organization("Java Online Projects", "Автор проекта", LocalDate.of(2013, 10, 1), null);
-        organization1.setMemo("Создание, организация и проведение Java онлайн проектов и стажировок.");
+        Organization organization1 = new Organization("Java Online Projects", "","Автор проекта", LocalDate.of(2013, 10, 1), null);
+        organization1.setDescription("Создание, организация и проведение Java онлайн проектов и стажировок.");
 
-        Organization organization2 = new Organization("Wrike", "Старший разработчик (backend)", LocalDate.of(2016, 1, 1), LocalDate.of(2014, 10, 1));
-        organization2.setMemo("Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
+        Organization organization2 = new Organization("Wrike", "","Старший разработчик (backend)", LocalDate.of(2016, 1, 1), LocalDate.of(2014, 10, 1));
+        organization2.setDescription("Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
 
-        Organization organization3 = new Organization("RIT Center", "Java архитектор", LocalDate.of(2010, 10, 1), LocalDate.of(2012, 4, 1));
-        organization3.setMemo("Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python");
+        Organization organization3 = new Organization("RIT Center", "","Java архитектор", LocalDate.of(2010, 10, 1), LocalDate.of(2012, 4, 1));
+        organization3.setDescription("Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python");
 
         experience.addOrganization(organization1);
         experience.addOrganization(organization2);
@@ -63,6 +70,7 @@ public class MyMain {
         resume.addSectionItem(SectionType.EXPERIENCE, experience);
 
         System.out.println(resume.toString());
+*/
 
     }
 }
