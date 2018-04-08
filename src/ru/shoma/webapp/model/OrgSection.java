@@ -10,6 +10,9 @@ import java.util.Objects;
  * Created by Shoma on 04.03.2018.
  */
 public class OrgSection extends Section {
+
+    private static final long serialVersionUid = 1L;
+
     private List<Organization> organizations;
 
     public OrgSection(Organization ... organizations){

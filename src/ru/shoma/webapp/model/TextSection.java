@@ -4,6 +4,9 @@ package ru.shoma.webapp.model;
  * Created by Shoma on 04.03.2018.
  */
 public class TextSection extends Section {
+
+    private static final long serialVersionUid = 1L;
+
     private String content;
 
     public TextSection(String content) {

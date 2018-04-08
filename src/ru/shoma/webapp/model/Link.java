@@ -1,11 +1,15 @@
 package ru.shoma.webapp.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Created by Shoma on 09.03.2018.
  */
-public class Link {
+public class Link implements Serializable{
+
+    private static final long serialVersionUid = 1L;
+
     private String name;
     private String url;
 

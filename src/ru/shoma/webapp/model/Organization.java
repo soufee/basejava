@@ -2,6 +2,7 @@ package ru.shoma.webapp.model;
 
 import ru.shoma.webapp.util.DateUtil;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +13,10 @@ import java.util.Objects;
 
 import static ru.shoma.webapp.util.DateUtil.NOW;
 
-/**
- * Created by Shoma on 08.03.2018.
- */
-public class Organization {
+public class Organization implements Serializable{
+
+    private static final long serialVersionUid = 1L;
+
     private Link homepage;
     private String name;
     private List<Position> positions = new ArrayList<>();
@@ -36,6 +37,7 @@ public Organization (String name, String url, Position ... positions){
         return "Organisation: " + homepage+"\nPosition: "+positions;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,17 +46,21 @@ public Organization (String name, String url, Position ... positions){
         Organization that = (Organization) o;
 
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
-        return name.equals(that.name);
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return positions != null ? positions.equals(that.positions) : that.positions == null;
     }
 
     @Override
     public int hashCode() {
         int result = homepage != null ? homepage.hashCode() : 0;
-        result = 31 * result + name.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (positions != null ? positions.hashCode() : 0);
         return result;
     }
 
-    public static class Position {
+    public static class Position implements Serializable{
+
+        private static final long serialVersionUid = 1L;
         private String title;
         private LocalDate startDate;
         private LocalDate endDate;

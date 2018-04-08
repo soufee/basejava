@@ -9,6 +9,9 @@ import java.util.Objects;
  * Created by Shoma on 04.03.2018.
  */
 public class ListSection extends Section {
+
+    private static final long serialVersionUid = 1L;
+
     private List<String> contents = new ArrayList<>();
 
     public ListSection(String ... contents) {
