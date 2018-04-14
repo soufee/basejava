@@ -1,12 +1,10 @@
 package ru.shoma.webapp.storage;
 
-import static ru.shoma.webapp.storage.AbstractStorageTest.STORAGE_DIR;
+import ru.shoma.webapp.storage.serializers.PathSerializer;
 
-/**
- * Created by Shoma on 07.04.2018.
- */
+
 public class PathStorageTest extends AbstractStorageTest {
     public PathStorageTest() {
-        super(new PathStorage(STORAGE_DIR.getAbsolutePath()));
-    }
+        super(new PathStorage(STORAGE_DIR.getAbsolutePath(), new PathSerializer()));
+            }
 }
