@@ -12,8 +12,9 @@ public class PathSerializer implements SerializeStrategy{
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {
-        ObjectOutputStream stream = new ObjectOutputStream(os);
+        try(ObjectOutputStream stream = new ObjectOutputStream(os)){
         stream.writeObject(r);
+        }
     }
 
     @Override
