@@ -42,8 +42,7 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     public int size() {
         try {
-            int size = (int) Files.list(directory).count();
-            return size;
+            return (int) Files.list(directory).count();
         } catch (IOException e) {
             throw new StorageException(null, "Directory read error");
         }
@@ -87,7 +86,6 @@ public class PathStorage extends AbstractStorage<Path> {
 
             throw new StorageException(path.getFileName().toString(), "Path read error");
         }
-
     }
 
     @Override
@@ -106,8 +104,5 @@ public class PathStorage extends AbstractStorage<Path> {
         } catch (IOException e) {
             throw new StorageException(null, "Cant get all resumes");
         }
-
     }
-
-
 }
