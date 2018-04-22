@@ -1,6 +1,5 @@
 package ru.shoma.webapp.storage;
 
-import javafx.collections.transformation.SortedList;
 import ru.shoma.webapp.exception.ExistStorageException;
 import ru.shoma.webapp.exception.NotExistStorageException;
 import ru.shoma.webapp.model.Resume;
@@ -25,7 +24,7 @@ public abstract class AbstractStorage<K> implements Storage {
 
     protected abstract boolean isExist(K searchKey);
 
-    protected abstract List<Resume> getAllResumes();
+    protected abstract List<Resume> doCopyAll();
 
     public void update(Resume r) {
         LOG.info("Update : " + r.toString());
@@ -46,7 +45,7 @@ public abstract class AbstractStorage<K> implements Storage {
     }
 
     public Resume get(String uuid) {
-        LOG.info("Get : " + uuid);
+        LOG.info("Get " + uuid);
         K searchKey = getExistedSearchKey(uuid);
         return doGet(searchKey);
     }
@@ -71,7 +70,7 @@ public abstract class AbstractStorage<K> implements Storage {
 
     public List<Resume> getAllSorted() {
         LOG.info("GetAllSorted");
-        List<Resume> list = getAllResumes();
+        List<Resume> list = doCopyAll();
         Collections.sort(list);
         return list;
     }

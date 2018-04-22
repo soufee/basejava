@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         return size;
     }
 
-    protected List<Resume> getAllResumes() {
+    protected List<Resume> doCopyAll() {
         Resume[] r = new Resume[size];
         System.arraycopy(storage, 0, r, 0, size);
         return Arrays.asList(r);

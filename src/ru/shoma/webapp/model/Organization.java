@@ -1,7 +1,11 @@
 package ru.shoma.webapp.model;
 
 import ru.shoma.webapp.util.DateUtil;
+import ru.shoma.webapp.util.LocalDateAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -12,8 +16,10 @@ import java.util.List;
 import java.util.Objects;
 
 import static ru.shoma.webapp.util.DateUtil.NOW;
+import static ru.shoma.webapp.util.DateUtil.of;
 
-public class Organization implements Serializable{
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Organization implements Serializable {
 
     private static final long serialVersionUid = 1L;
 
@@ -27,16 +33,19 @@ public class Organization implements Serializable{
         this.positions = positions;
     }
 
-public Organization (String name, String url, Position ... positions){
+    public Organization(String name, String url, Position... positions) {
         this(new Link(name, url), Arrays.asList(positions));
-}
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-YYYY");
 
-        return "Organisation: " + homepage+"\nPosition: "+positions;
+        return "Organisation: " + homepage + "\nPosition: " + positions;
     }
 
+    public Organization() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -46,8 +55,7 @@ public Organization (String name, String url, Position ... positions){
         Organization that = (Organization) o;
 
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return positions != null ? positions.equals(that.positions) : that.positions == null;
+        return (name != null ? name.equals(that.name) : that.name == null) && (positions != null ? positions.equals(that.positions) : that.positions == null);
     }
 
     @Override
@@ -58,20 +66,25 @@ public Organization (String name, String url, Position ... positions){
         return result;
     }
 
-    public static class Position implements Serializable{
-
-        private static final long serialVersionUid = 1L;
-        private String title;
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class Position implements Serializable {
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate endDate;
+        private String title;
         private String description;
+        private static final long serialVersionUid = 1L;
 
-        public Position(int year, Month month, String title, String description){
-            this(title, DateUtil.of(year,month), NOW, description);
+        public Position(int year, Month month, String title, String description) {
+            this(title, DateUtil.of(year, month), NOW, description);
         }
 
-        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description){
+        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
             this(title, DateUtil.of(startYear, startMonth), DateUtil.of(endYear, endMonth), description);
+        }
+
+        public Position() {
         }
 
         public Position(String title, LocalDate startDate, LocalDate endDate, String description) {
@@ -79,8 +92,8 @@ public Organization (String name, String url, Position ... positions){
             Objects.requireNonNull(startDate, "The start date must not be null");
             this.title = title;
             this.startDate = startDate;
-            if (endDate==null)
-            this.endDate = NOW;
+            if (endDate == null)
+                this.endDate = NOW;
             else this.endDate = endDate;
             this.description = description;
         }
@@ -94,8 +107,7 @@ public Organization (String name, String url, Position ... positions){
 
             if (title != null ? !title.equals(position.title) : position.title != null) return false;
             if (startDate != null ? !startDate.equals(position.startDate) : position.startDate != null) return false;
-            if (endDate != null ? !endDate.equals(position.endDate) : position.endDate != null) return false;
-            return description != null ? description.equals(position.description) : position.description == null;
+            return (endDate != null ? endDate.equals(position.endDate) : position.endDate == null) && (description != null ? description.equals(position.description) : position.description == null);
         }
 
         @Override

@@ -22,7 +22,7 @@ public abstract class AbstractStorageTest {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
- //   private static final String UUID_4 = "uuid4";
+    //   private static final String UUID_4 = "uuid4";
     private static Resume R1;
     private static Resume R2;
     private static Resume R3;
@@ -32,7 +32,6 @@ public abstract class AbstractStorageTest {
         R1 = new Resume(UUID_1, "Name 1");
         R2 = new Resume(UUID_2, "Name 2");
         R3 = new Resume(UUID_3, "Name 3");
-        //   R4 = new Resume(UUID_4, "Гоова Лейла Руслановна");
 
         R1.addContact(ContactType.EMAIL, "soufee@mail.ru");
         R1.addContact(ContactType.CELLPHONE, "+79604268452");
@@ -65,8 +64,6 @@ public abstract class AbstractStorageTest {
         R2.addSectionItem(SectionType.EDUCATION,
                 new OrgSection(new Organization("Московский государственный педагогический институт", "",
                         new Organization.Position(2004, Month.SEPTEMBER, 2009, Month.JUNE, "Student", ""))));
-
-
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -114,7 +111,13 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() throws Exception {
-        assertEquals(storage.get(UUID_2).getUuid(), "uuid2");
+        assertGet(R1);
+        assertGet(R2);
+        assertGet(R3);
+    }
+
+    private void assertGet(Resume r) {
+        assertEquals(r, storage.get(r.getUuid()));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -137,8 +140,6 @@ public abstract class AbstractStorageTest {
         arr.add(R1);
         arr.add(R2);
         arr.add(R3);
-
         assertEquals(list, arr);
     }
-
 }

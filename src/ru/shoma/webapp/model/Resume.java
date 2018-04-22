@@ -1,18 +1,27 @@
 package ru.shoma.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.*;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Comparable<Resume>, Serializable {
-private static final long serialVersionUid = 1L;
+    private static final long serialVersionUid = 1L;
 
-    private final String uuid;
+    private String uuid;
     private String fullName;
-    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
+    }
+
+    public Resume() {
+
     }
 
     public Resume(String uuid, String fullName) {
@@ -34,11 +43,11 @@ private static final long serialVersionUid = 1L;
         return new EnumMap<>(contacts);
     }
 
-    public String getContact(ContactType type){
+    public String getContact(ContactType type) {
         return contacts.get(type);
     }
 
-    public Section getSection(SectionType type){
+    public Section getSection(SectionType type) {
         return sections.get(type);
     }
 
@@ -46,11 +55,11 @@ private static final long serialVersionUid = 1L;
         return new EnumMap<>(sections);
     }
 
-    public void addContact(ContactType ct, String item){
+    public void addContact(ContactType ct, String item) {
         contacts.put(ct, item);
     }
 
-    public void addSectionItem(SectionType ct, Section s){
+    public void addSectionItem(SectionType ct, Section s) {
         sections.put(ct, s);
     }
 
@@ -62,34 +71,27 @@ private static final long serialVersionUid = 1L;
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Resume)) return false;
-
         Resume resume = (Resume) o;
-
-        if (!uuid.equals(resume.uuid)) return false;
-        if (!fullName.equals(resume.fullName)) return false;
-        if (contacts != null ? !contacts.equals(resume.contacts) : resume.contacts != null) return false;
-        return sections != null ? sections.equals(resume.sections) : resume.sections == null;
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
-        result = 31 * result + (contacts != null ? contacts.hashCode() : 0);
-        result = 31 * result + (sections != null ? sections.hashCode() : 0);
-        return result;
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 
     @Override
     public String toString() {
-        StringBuilder summary = new StringBuilder("Резюме № "+uuid+"\n");
-        summary.append("ФИО: "+fullName+"\n");
-        summary.append("Контактная информация\n");
-        for (Map.Entry<ContactType, String> entry:contacts.entrySet()) {
-            summary.append(entry.getKey()+" : "+entry.getValue()+"\n");
+        StringBuilder summary = new StringBuilder("Резюме № " + uuid + "\n");
+        summary.append("ФИО: ").append(fullName).append("\n").append("Контактная информация\n");
+        for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+            summary.append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
         }
-        for (Map.Entry<SectionType, Section> entry:sections.entrySet()) {
-            summary.append(entry.getKey()+" : \n"+entry.getValue()+"\n");
+        for (Map.Entry<SectionType, Section> entry : sections.entrySet()) {
+            summary.append(entry.getKey()).append(" : \n").append(entry.getValue()).append("\n");
         }
 
         return summary.toString();
@@ -98,7 +100,7 @@ private static final long serialVersionUid = 1L;
     @Override
     public int compareTo(Resume o) {
         int nameCmp = this.fullName.compareTo(o.getFullName());
-        return nameCmp==0 ? this.uuid.compareTo(o.getUuid()):nameCmp;
+        return nameCmp == 0 ? this.uuid.compareTo(o.getUuid()) : nameCmp;
     }
 
 }

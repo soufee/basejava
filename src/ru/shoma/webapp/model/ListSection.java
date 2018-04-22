@@ -1,13 +1,7 @@
 package ru.shoma.webapp.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-/**
- * Created by Shoma on 04.03.2018.
- */
 public class ListSection extends Section {
 
     private static final long serialVersionUid = 1L;
@@ -21,6 +15,9 @@ public class ListSection extends Section {
     public ListSection(List<String> contents) {
         Objects.requireNonNull(contents, "List of contents must not be null");
         this.contents = contents;
+    }
+
+    public ListSection() {
     }
 
     public void addItem(String item) {
@@ -39,9 +36,7 @@ public class ListSection extends Section {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ListSection)) return false;
-
         ListSection that = (ListSection) o;
-
         return contents != null ? contents.equals(that.contents) : that.contents == null;
     }
 

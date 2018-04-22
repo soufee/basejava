@@ -1,10 +1,10 @@
 package ru.shoma.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 
-/**
- * Created by Shoma on 04.03.2018.
- */
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Section implements Serializable{
 
 }

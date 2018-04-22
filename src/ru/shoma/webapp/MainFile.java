@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-/**
- * Created by Shoma on 11.03.2018.
- */
+
 public class MainFile {
     public static void main(String[] args) {
 //        File file = new File(".\\.gitignore");
@@ -30,18 +28,18 @@ public class MainFile {
 //            throw new RuntimeException("Error", e);
 //        }
 
-        printDirectoryDeep(dir);
+        printDirectoryDeep(dir, "\t");
     }
 //TODO красивый вывод директорий и файлов
-    public static void printDirectoryDeep(File dir) {
+    private static void printDirectoryDeep(File dir, String offset) {
         File[] files = dir.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("\t f:: " + file.getName());
+                    System.out.println(offset + "f:: " + file.getName());
                 } else if (file.isDirectory()) {
-                    System.out.println("D:: " + file.getName());
-                    printDirectoryDeep(file);
+                    System.out.println(offset+"D:: " + file.getName());
+                    printDirectoryDeep(file, offset + "  ");
                 }
             }
         }

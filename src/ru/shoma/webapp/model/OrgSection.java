@@ -1,14 +1,10 @@
 package ru.shoma.webapp.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by Shoma on 04.03.2018.
- */
 public class OrgSection extends Section {
 
     private static final long serialVersionUid = 1L;
@@ -24,14 +20,14 @@ public class OrgSection extends Section {
         this.organizations = organizations;
     }
 
+    public OrgSection() {
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof OrgSection)) return false;
-
         OrgSection that = (OrgSection) o;
-
         return organizations != null ? organizations.equals(that.organizations) : that.organizations == null;
     }
 
@@ -43,7 +39,6 @@ public class OrgSection extends Section {
     public List<Organization> getOrganizations() {
         return new ArrayList<>(organizations);
     }
-
 
     @Override
     public String toString() {
