@@ -44,6 +44,30 @@ public class Organization implements Serializable {
         return "Organisation: " + homepage + "\nPosition: " + positions;
     }
 
+    public Link getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(Link homepage) {
+        this.homepage = homepage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<Position> positions) {
+        this.positions = positions;
+    }
+
     public Organization() {
     }
 

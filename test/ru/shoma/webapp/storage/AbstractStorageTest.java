@@ -40,12 +40,12 @@ public abstract class AbstractStorageTest {
         R1.addSectionItem(SectionType.PERSONAL, new TextSection("Личные качества очень хорошие, мамой клянус!"));
         R1.addSectionItem(SectionType.ACHIEVEMENT, new ListSection("OCA сертификат", "Сертификат Университета Иннополис"));
         R1.addSectionItem(SectionType.QUALIFICATIONS, new ListSection("Java EE", "Pega BPM", "Spring MVC", "Spring IoC", "Spring security", "Hibernate", "SQL"));
-        R1.addSectionItem(SectionType.EXPERIENCE,
-                new OrgSection(
-                        new Organization("Ай-Теко", "http:\\\\i-teco.ru", new Organization.Position(2017, Month.JULY, "Старший разработчик", "Java & Pega developer")),
-                        new Organization("Новые информационные технологии", "", new Organization.Position(2007, Month.JULY, 2009, Month.SEPTEMBER, "Программист", "Delphi"))));
-        R1.addSectionItem(SectionType.EDUCATION,
-                new OrgSection(new Organization("КБЭПЛ", "",
+       R1.addSectionItem(SectionType.EXPERIENCE,
+              new OrgSection(
+                       new Organization("Ай-Теко", "http:\\\\i-teco.ru", new Organization.Position(2017, Month.JULY, "Старший разработчик", "Java & Pega developer")),
+                      new Organization("Новые информационные технологии", "", new Organization.Position(2007, Month.JULY, 2009, Month.SEPTEMBER, "Программист", "Delphi"))));
+      R1.addSectionItem(SectionType.EDUCATION,
+               new OrgSection(new Organization("КБЭПЛ", "",
                         new Organization.Position(2000, Month.SEPTEMBER, 2003, Month.JUNE, "Student", "")),
                         new Organization("КБИБ", "",
                                 new Organization.Position(2003, Month.SEPTEMBER, 2008, Month.JULY, "Student", ""))));
@@ -61,9 +61,11 @@ public abstract class AbstractStorageTest {
                 new OrgSection(
                         new Organization("Мед академия, Владикавказ", null, new Organization.Position(2013, Month.JULY, 2014, Month.AUGUST, "Деканат", null)),
                         new Organization("газета Терек", null, new Organization.Position(2017, Month.MARCH, 2017, Month.MAY, "Корреспондент", null))));
+
         R2.addSectionItem(SectionType.EDUCATION,
-                new OrgSection(new Organization("Московский государственный педагогический институт", "",
-                        new Organization.Position(2004, Month.SEPTEMBER, 2009, Month.JUNE, "Student", ""))));
+                new OrgSection(new Organization("Московский государственный педагогический институт", null,
+                        new Organization.Position(2004, Month.SEPTEMBER, 2009, Month.JUNE, "Student", null))));
+
     }
 
     protected AbstractStorageTest(Storage storage) {
