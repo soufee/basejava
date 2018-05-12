@@ -24,7 +24,7 @@ public class DataStreamSerializer implements SerializeStrategy {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
             }
-            //TODO: SECTIONS
+
             Map<SectionType, Section> sections = r.getSections();
             dos.writeInt(sections.size());
             for (Map.Entry<SectionType, Section> entry : sections.entrySet()) {
@@ -44,7 +44,7 @@ public class DataStreamSerializer implements SerializeStrategy {
                             try {
                                 dos.writeUTF(st);
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                new StorageException("Ошибка записи",listSection.toString(), e);
                             }
                         });
                         break;
@@ -57,17 +57,16 @@ public class DataStreamSerializer implements SerializeStrategy {
                             String name = link.getName();
                             dos.writeUTF(name);
                             String url = link.getUrl();
-                            dos.writeUTF(url != null ? url : "_");
+                            dos.writeUTF(url != null ? url : " ");
                             dos.writeInt(o.getPositions().size());
                             for (Organization.Position position : o.getPositions()) {
                                 dos.writeUTF(position.getTitle());
                                 String descr = position.getDescription();
-                                dos.writeUTF(descr != null ? descr : "_");
+                                dos.writeUTF(descr != null ? descr : " ");
                                 dos.writeUTF(String.valueOf(position.getStartDate()));
                                 dos.writeUTF(String.valueOf(position.getEndDate()));
                             }
                         }
-
                         break;
                     default:
                         throw new IOException("Неизвестная ошибка");
@@ -88,7 +87,7 @@ public class DataStreamSerializer implements SerializeStrategy {
                 String contactValue = dis.readUTF();
                 resume.addContact(type, contactValue);
             }
-            //TODO: SECTIONS
+
             int sizeOfSections = dis.readInt();
             Map<SectionType, Section> sections = new HashMap<>(sizeOfSections);
 
@@ -116,14 +115,14 @@ public class DataStreamSerializer implements SerializeStrategy {
                         for (int j = 0; j < orgListSize; j++) {
                             String linkName = dis.readUTF();
                             String url = dis.readUTF();
-                            url = url.equals("_") ? null: url;
+                            url = url.equals(" ") ? null: url;
                             Link link = new Link(linkName, url);
                             int positionsSize = dis.readInt();
                             List<Organization.Position> positions = new ArrayList<>(positionsSize);
                             for (int k = 0; k < positionsSize; k++) {
                                 String title = dis.readUTF();
                                 String description = dis.readUTF();
-                                description = description.equals("_") ? null: description;
+                                description = description.equals(" ") ? null: description;
                                 String start = dis.readUTF();
                                 String end = dis.readUTF();
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
