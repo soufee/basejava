@@ -119,7 +119,7 @@ public class Organization implements Serializable {
             if (endDate == null)
                 this.endDate = NOW;
             else this.endDate = endDate;
-            this.description = description;
+            this.description = description== null? " ":description;
         }
 
         @Override
