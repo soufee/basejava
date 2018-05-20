@@ -78,7 +78,6 @@ public class SqlStorage implements Storage {
             }
             return resumes;
         });
-
     }
 
     @Override
