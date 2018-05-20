@@ -87,5 +87,4 @@ public class SqlStorage implements Storage {
             return results.next() ? results.getInt(1) : 0;
         });
     }
-
 }
