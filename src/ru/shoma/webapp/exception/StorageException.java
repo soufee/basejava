@@ -1,5 +1,7 @@
 package ru.shoma.webapp.exception;
 
+import java.sql.SQLException;
+
 public class StorageException extends RuntimeException {
     private final String uuid;
 
@@ -19,6 +21,10 @@ public class StorageException extends RuntimeException {
 
     public StorageException(String msg) {
         this(msg, null, null);
+    }
+
+    public StorageException(Exception e) {
+        this(e.getMessage());
     }
 
     public String getUuid() {

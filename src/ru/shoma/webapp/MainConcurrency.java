@@ -7,16 +7,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * Created by Shoma on 09.05.2018.
- */
+
 public class MainConcurrency {
     public static final int THREADS_NUMBER = 10000;
     private static int counter;
     private static AtomicInteger atomicInteger = new AtomicInteger();
     //  private static final Object LOCK = new Object();
     private static final Lock LOCK = new ReentrantLock();
-    private static final ThreadLocal<SimpleDateFormat> SIMPLE_DATE_FORMAT = ThreadLocal.withInitial(() -> new SimpleDateFormat());
+    private static final ThreadLocal<SimpleDateFormat> SIMPLE_DATE_FORMAT = ThreadLocal.withInitial(SimpleDateFormat::new);
 
     public static void main(String[] args) throws InterruptedException {
 //        System.out.println(Thread.currentThread().getName());
