@@ -1,5 +1,6 @@
 package ru.shoma.webapp.storage;
 
+import ru.shoma.webapp.exception.ExistStorageException;
 import ru.shoma.webapp.exception.NotExistStorageException;
 import ru.shoma.webapp.model.Resume;
 import ru.shoma.webapp.sql.ConnectionFactory;
@@ -10,12 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlStorage implements Storage {
-    private final ConnectionFactory connectionFactory;
     private SqlHelper helper;
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
-        connectionFactory = () -> DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-        helper = new SqlHelper(connectionFactory);
+           helper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
     }
 
     @Override

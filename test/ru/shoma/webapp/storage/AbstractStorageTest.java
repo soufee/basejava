@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ru.shoma.webapp.Config;
+import ru.shoma.webapp.exception.ExistStorageException;
 import ru.shoma.webapp.exception.NotExistStorageException;
 import ru.shoma.webapp.model.*;
 
@@ -100,6 +101,12 @@ public abstract class AbstractStorageTest {
         assertEquals(storage.size(), 4);
         Resume r = storage.get("Ashamaz");
         Assert.assertNotNull(r);
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void saveExist() throws Exception {
+        storage.save(new Resume("Ashamaz", "Ashamaz"));
+        storage.save(new Resume("Ashamaz", "Ashamaz"));
     }
 
     @Test(expected = NotExistStorageException.class)

@@ -1,5 +1,6 @@
 package ru.shoma.webapp.sql;
 
+import ru.shoma.webapp.exception.ExistStorageException;
 import ru.shoma.webapp.exception.StorageException;
 
 import java.sql.Connection;
@@ -18,6 +19,7 @@ public class SqlHelper {
              PreparedStatement ps = connection.prepareStatement(sql)) {
            return executor.executeAndGet(ps);
         } catch (SQLException e) {
+           if (e.getSQLState().equals("23505")) throw new ExistStorageException(null);
             throw new StorageException(e);
         }
     }
