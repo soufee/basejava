@@ -13,6 +13,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,9 +22,9 @@ public abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = Config.getInstance().getStorageDir();
     protected Storage storage;
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
     //   private static final String UUID_4 = "uuid4";
     private static Resume R1;
     private static Resume R2;
@@ -35,13 +36,13 @@ public abstract class AbstractStorageTest {
         R2 = new Resume(UUID_2, "Name 2");
         R3 = new Resume(UUID_3, "Name 3");
 
-//        R1.addContact(ContactType.EMAIL, "soufee@mail.ru");
-//        R1.addContact(ContactType.CELLPHONE, "+79604268452");
-//
-//        R1.addSectionItem(SectionType.OBJECTIVE, new TextSection("Java Developer"));
-//        R1.addSectionItem(SectionType.PERSONAL, new TextSection("Личные качества очень хорошие, мамой клянус!"));
-//        R1.addSectionItem(SectionType.ACHIEVEMENT, new ListSection("OCA сертификат", "Сертификат Университета Иннополис"));
-//        R1.addSectionItem(SectionType.QUALIFICATIONS, new ListSection("Java EE", "Pega BPM", "Spring MVC", "Spring IoC", "Spring security", "Hibernate", "SQL"));
+        R1.addContact(ContactType.EMAIL, "soufee@mail.ru");
+        R1.addContact(ContactType.CELLPHONE, "+79604268452");
+
+        R1.addSectionItem(SectionType.OBJECTIVE, new TextSection("Java Developer"));
+        R1.addSectionItem(SectionType.PERSONAL, new TextSection("Личные качества очень хорошие, мамой клянус!"));
+        R1.addSectionItem(SectionType.ACHIEVEMENT, new ListSection("OCA сертификат", "Сертификат Университета Иннополис"));
+        R1.addSectionItem(SectionType.QUALIFICATIONS, new ListSection("Java EE", "Pega BPM", "Spring MVC", "Spring IoC", "Spring security", "Hibernate", "SQL"));
 //       R1.addSectionItem(SectionType.EXPERIENCE,
 //              new OrgSection(
 //                       new Organization("Ай-Теко", "http:\\\\i-teco.ru", new Organization.Position(2017, Month.JULY, "Старший разработчик", "Java & Pega developer")),
@@ -51,14 +52,14 @@ public abstract class AbstractStorageTest {
 //                        new Organization.Position(2000, Month.SEPTEMBER, 2003, Month.JUNE, "Student", "")),
 //                        new Organization("КБИБ", "",
 //                                new Organization.Position(2003, Month.SEPTEMBER, 2008, Month.JULY, "Student", ""))));
-//
-//        R2.addContact(ContactType.EMAIL, "zarina@mail.ru");
-//        R2.addContact(ContactType.CELLPHONE, "+79778339880");
-//
-//        R2.addSectionItem(SectionType.OBJECTIVE, new TextSection("Корреспондент"));
-//        R2.addSectionItem(SectionType.PERSONAL, new TextSection("Личные данные"));
-//        R2.addSectionItem(SectionType.ACHIEVEMENT, new ListSection("Достиженние 1", "Достижение 2", "Достижение 3"));
-//        R2.addSectionItem(SectionType.QUALIFICATIONS, new ListSection("Умение 1", "Умение 2", "Умение 3"));
+
+        R2.addContact(ContactType.EMAIL, "zarina@mail.ru");
+        R2.addContact(ContactType.CELLPHONE, "+79778339880");
+
+        R2.addSectionItem(SectionType.OBJECTIVE, new TextSection("Корреспондент"));
+        R2.addSectionItem(SectionType.PERSONAL, new TextSection("Личные данные"));
+        R2.addSectionItem(SectionType.ACHIEVEMENT, new ListSection("Достиженние 1", "Достижение 2", "Достижение 3"));
+        R2.addSectionItem(SectionType.QUALIFICATIONS, new ListSection("Умение 1", "Умение 2", "Умение 3"));
 //        R2.addSectionItem(SectionType.EXPERIENCE,
 //                new OrgSection(
 //                        new Organization("Мед академия, Владикавказ", null, new Organization.Position(2013, Month.JULY, 2014, Month.AUGUST, "Деканат", null)),
@@ -91,7 +92,11 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() throws Exception {
         Resume resume = new Resume(UUID_2, UUID_2);
+        R2.addContact(ContactType.EMAIL, "soufee1@yandex.ru");
+        R2.addContact(ContactType.CELLPHONE, "+79896566565");
         storage.update(resume);
+        System.out.println(resume);
+        System.out.println(storage.get(UUID_2));
         Assert.assertTrue(resume.equals(storage.get(UUID_2)));
     }
 
@@ -150,6 +155,6 @@ public abstract class AbstractStorageTest {
         arr.add(R1);
         arr.add(R2);
         arr.add(R3);
-        assertEquals(list, arr);
+        assertEquals(arr, list);
     }
 }
