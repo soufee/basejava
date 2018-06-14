@@ -3,18 +3,22 @@
 <head>
     <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
-    <title>TEST</title>
+    <title>Main</title>
 </head>
-<header>
-    <h1> Тест </h1>
-</header>
 <body>
+<header>
+    <h1> Главная </h1>
+</header>
 <nav>
     <ul>
-        <li><a href="/resumes">Main</a></li>
+        <li><a href="test.html">Test</a></li>
         <li><a href="/resumes/resume?name=Ashamaz                             ">Resume Ashamaz </a></li>
         <li><a href="/resumes/resume">All resumes </a></li>
     </ul>
 </nav>
-</body>
-</html>
+<center>
+<table border="1" width="640">
+<tr bgcolor="#fff2d6">
+<td colspan="5" height="30"><center><b>ФИО</b></center></td>
+<td colspan="5" height="30"><center><b>Контакты</b></center></td>
+</tr>

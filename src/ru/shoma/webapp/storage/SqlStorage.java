@@ -8,8 +8,6 @@ import ru.shoma.webapp.sql.SqlHelper;
 import java.sql.*;
 import java.util.*;
 
-//TODO доработать секции за исключением Experience и education
-//TODO джоинить списки с помощью спецсимвола '\n'
 public class SqlStorage implements Storage {
     private SqlHelper helper;
 
