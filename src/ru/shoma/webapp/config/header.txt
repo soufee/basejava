@@ -16,9 +16,3 @@
         <li><a href="/resumes/resume">All resumes </a></li>
     </ul>
 </nav>
-<center>
-<table border="1" width="640">
-<tr bgcolor="#fff2d6">
-<td colspan="5" height="30"><center><b>ФИО</b></center></td>
-<td colspan="5" height="30"><center><b>Контакты</b></center></td>
-</tr>

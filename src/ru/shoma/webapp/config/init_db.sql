@@ -1,24 +1,45 @@
-CREATE TABLE resume
+create table resume
 (
-  uuid      CHAR(36) NOT NULL
-    CONSTRAINT resume_pkey
-    PRIMARY KEY,
-  full_name TEXT NOT NULL
-);
+  uuid char(36) not null
+    constraint resume_pkey
+    primary key,
+  full_name text not null
+)
+;
 
-CREATE TABLE contact
+create table contact
 (
-  id          SERIAL   NOT NULL
-    CONSTRAINT contact_pkey
-    PRIMARY KEY,
-  type        TEXT     NOT NULL,
-  value       TEXT     NOT NULL,
-  resume_uuid CHAR(36) NOT NULL
-    CONSTRAINT contact_resume_uuid_fk
-    REFERENCES resume
-    ON DELETE CASCADE
-);
+  id serial not null
+    constraint contact_pkey
+    primary key,
+  type text not null,
+  value text not null,
+  resume_uuid char(36) not null
+    constraint contact_resume_uuid_fk
+    references resume
+    on delete cascade
+)
+;
 
-CREATE UNIQUE INDEX contact_uuid_type_index
-  ON public.contact (resume_uuid, type);
+create unique index contact_uuid_type_index
+  on contact (resume_uuid, type)
+;
+
+create table section
+(
+  id serial not null
+    constraint section_pkey
+    primary key,
+  type_s text not null,
+  value_s text not null,
+  resume_uuid char(36) not null
+    constraint section_resume_uuid_fk
+    references resume
+    on delete cascade
+)
+;
+
+create unique index section_uuid_type_index
+  on section (resume_uuid, type_s)
+;
 
