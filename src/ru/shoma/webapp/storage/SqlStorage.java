@@ -57,7 +57,7 @@ public class SqlStorage implements Storage {
         return helper.execute(" SELECT * FROM resume r" +
                 " LEFT JOIN contact c " +
                 " ON r.uuid = c.resume_uuid " +
-                " LEFT JOIN section s ON r.uuid = s.resume_uuid "+
+                " LEFT JOIN section s ON r.uuid = s.resume_uuid " +
                 " WHERE r.uuid = ?", statement -> {
             statement.setString(1, uuid);
             ResultSet rs = statement.executeQuery();
@@ -86,23 +86,30 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return helper.execute("SELECT * FROM resume r " +
-                "LEFT JOIN contact c ON r.uuid = c.resume_uuid " +
-                "LEFT JOIN section s ON r.uuid = s.resume_uuid "+
-                "ORDER BY  full_name, uuid", statement -> {
-            ResultSet results = statement.executeQuery();
-            Map<String, Resume> map = new LinkedHashMap<>();
-            while (results.next()) {
-                String uuid = results.getString("uuid");
-                Resume resume = map.get(uuid);
-                if (resume == null) {
-                    resume = new Resume(uuid, results.getString("full_name"));
-                    map.put(uuid, resume);
+        Map<String, Resume> resumes = new LinkedHashMap<>();
+        return helper.transactionalExecute(connection -> {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM resume ORDER BY full_name, uuid")) {
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    String uuid = resultSet.getString("uuid");
+                    resumes.put(uuid, new Resume(uuid, resultSet.getString("full_name")));
                 }
-                addContact(results, resume);
-                addSection(results, resume);
             }
-            return new ArrayList<>(map.values());
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM contact")) {
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    Resume r = resumes.get(resultSet.getString("resume_uuid"));
+                    addContact(resultSet, r);
+                }
+            }
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM section")) {
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    Resume r = resumes.get(resultSet.getString("resume_uuid"));
+                    addSection(resultSet, r);
+                }
+            }
+            return new ArrayList<>(resumes.values());
         });
     }
 
@@ -115,19 +122,21 @@ public class SqlStorage implements Storage {
     }
 
     private void deleteContacts(Connection conn, Resume r) {
-        helper.execute("DELETE FROM contact WHERE resume_uuid=?", ps -> {
-            ps.setString(1, r.getUuid());
-            ps.execute();
-            return null;
-        });
+        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM contact WHERE resume_uuid=?")) {
+            statement.setString(1, r.getUuid());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void deleteSections(Connection conn, Resume r) {
-        helper.execute("DELETE FROM section WHERE resume_uuid=?", ps -> {
-            ps.setString(1, r.getUuid());
-            ps.execute();
-            return null;
-        });
+        try (PreparedStatement statement = conn.prepareStatement("DELETE FROM section WHERE resume_uuid=?")) {
+            statement.setString(1, r.getUuid());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void insertContacts(Connection conn, Resume r) throws SQLException {
@@ -156,9 +165,8 @@ public class SqlStorage implements Storage {
                     case "ACHIEVEMENT":
                     case "QUALIFICATIONS":
                         ListSection sectionList = (ListSection) e.getValue();
-                        StringBuilder sb = new StringBuilder("");
-                        sectionList.getAll().stream().forEach(s -> sb.append(s).append("\n"));
-                        statement.setString(3, sb.toString().trim());
+                        String sb = String.join("\n", sectionList.getAll());
+                        statement.setString(3, sb.trim());
                         break;
                     default:
                         throw new StorageException("Тип секции не распознан");
@@ -179,28 +187,28 @@ public class SqlStorage implements Storage {
 
     private void addSection(ResultSet results, Resume resume) throws SQLException {
         String sectionType = results.getString("type_s");
-        if (sectionType!=null){
-        String value = results.getString("value_s");
-        switch (sectionType) {
-            case "PERSONAL":
-            case "OBJECTIVE":
-                if (value != null) {
-                    TextSection section = new TextSection(value);
-                    resume.addSectionItem(SectionType.valueOf(sectionType), section);
-                }
-                break;
-            case "ACHIEVEMENT":
-            case "QUALIFICATIONS":
-                if (value != null) {
-                    String[] list = value.split("\n");
-                    List<String> sectionValues = new ArrayList<>(Arrays.asList(list));
-                    ListSection listSection = new ListSection(sectionValues);
-                    resume.addSectionItem(SectionType.valueOf(sectionType), listSection);
-                }
-                break;
-            default:
-                throw new StorageException("Тип секции не распознан");
-        }
+        if (sectionType != null) {
+            String value = results.getString("value_s");
+            switch (sectionType) {
+                case "PERSONAL":
+                case "OBJECTIVE":
+                    if (value != null) {
+                        TextSection section = new TextSection(value);
+                        resume.addSectionItem(SectionType.valueOf(sectionType), section);
+                    }
+                    break;
+                case "ACHIEVEMENT":
+                case "QUALIFICATIONS":
+                    if (value != null) {
+                        String[] list = value.split("\n");
+                        List<String> sectionValues = new ArrayList<>(Arrays.asList(list));
+                        ListSection listSection = new ListSection(sectionValues);
+                        resume.addSectionItem(SectionType.valueOf(sectionType), listSection);
+                    }
+                    break;
+                default:
+                    throw new StorageException("Тип секции не распознан");
+            }
         }
     }
 

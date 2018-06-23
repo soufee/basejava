@@ -64,7 +64,7 @@ public class ResumeServlet extends HttpServlet {
         Map<ContactType, String> contacts = r.getContacts();
         StringBuilder contactList = new StringBuilder();
         for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
-            contactList.append(entry.getKey().getTitle() + " : " + entry.getValue() + "<br>");
+            contactList.append(entry.getKey().getTitle() + " : " + entry.getValue());
         }
         sb.append("<tr><td><b> Контакты</b><br>" + contactList.toString().trim() + "</td></tr>");
         Map<SectionType, Section> sections = r.getSections();
@@ -75,14 +75,14 @@ public class ResumeServlet extends HttpServlet {
                 case PERSONAL:
                 case OBJECTIVE:
                     TextSection ts = (TextSection) entry.getValue();
-                    sectionList.append("<pre> - "+ts.getContent()+"</pre> <br>");
+                    sectionList.append("<pre> - "+ts.getContent()+"</pre>");
                     break;
                 case ACHIEVEMENT:
                 case QUALIFICATIONS:
                     ListSection ls = (ListSection) entry.getValue();
                     List <String> contents = ls.getAll();
                     for (String s:contents) {
-                        sectionList.append("<pre> - "+s+"</pre> <br>");
+                        sectionList.append("<pre> - "+s+"</pre>");
                     }
                     break;
                  default:
