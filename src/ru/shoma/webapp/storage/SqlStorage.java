@@ -4,6 +4,7 @@ import ru.shoma.webapp.exception.NotExistStorageException;
 import ru.shoma.webapp.exception.StorageException;
 import ru.shoma.webapp.model.*;
 import ru.shoma.webapp.sql.SqlHelper;
+import ru.shoma.webapp.util.JsonParser;
 
 import java.sql.*;
 import java.util.*;
@@ -33,7 +34,7 @@ public class SqlStorage implements Storage {
             deleteContacts(conn, r);
             insertContacts(conn, r);
             deleteSections(conn, r);
-            insertSection(conn, r);
+            insertSections(conn, r);
             return null;
         });
     }
@@ -47,7 +48,7 @@ public class SqlStorage implements Storage {
                 statement.execute();
             }
             insertContacts(conn, r);
-            insertSection(conn, r);
+            insertSections(conn, r);
             return null;
         });
     }
@@ -70,17 +71,6 @@ public class SqlStorage implements Storage {
                 addSection(rs, r);
             } while (rs.next());
             return r;
-        });
-    }
-
-    @Override
-    public void delete(String uuid) {
-        helper.execute("DELETE FROM resume WHERE uuid = ?", statement -> {
-            statement.setString(1, uuid);
-            if (statement.executeUpdate() == 0) {
-                throw new NotExistStorageException(uuid);
-            }
-            return null;
         });
     }
 
@@ -110,6 +100,17 @@ public class SqlStorage implements Storage {
                 }
             }
             return new ArrayList<>(resumes.values());
+        });
+    }
+
+    @Override
+    public void delete(String uuid) {
+        helper.execute("DELETE FROM resume WHERE uuid = ?", statement -> {
+            statement.setString(1, uuid);
+            if (statement.executeUpdate() == 0) {
+                throw new NotExistStorageException(uuid);
+            }
+            return null;
         });
     }
 
@@ -151,7 +152,7 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void insertSection(Connection conn, Resume r) throws SQLException {
+    private void insertSections(Connection conn, Resume r) throws SQLException {
         try (PreparedStatement statement = conn.prepareStatement("INSERT INTO section (resume_uuid, type_s, value_s) VALUES (?, ?, ?)")) {
             for (Map.Entry<SectionType, Section> e : r.getSections().entrySet()) {
                 statement.setString(1, r.getUuid());
@@ -168,6 +169,12 @@ public class SqlStorage implements Storage {
                         String sb = String.join("\n", sectionList.getAll());
                         statement.setString(3, sb.trim());
                         break;
+                    case "EXPERIENCE":
+                    case "EDUCATION": {
+                        Section section = (Section) e.getValue();
+                        statement.setString(3, JsonParser.write(section, Section.class));
+                    }
+                    break;
                     default:
                         throw new StorageException("Тип секции не распознан");
                 }
@@ -206,6 +213,12 @@ public class SqlStorage implements Storage {
                         resume.addSectionItem(SectionType.valueOf(sectionType), listSection);
                     }
                     break;
+                case "EXPERIENCE":
+                case "EDUCATION": {
+                    Section section = JsonParser.read(value, Section.class);
+                    resume.addSectionItem(SectionType.valueOf(sectionType), section);
+                }
+                break;
                 default:
                     throw new StorageException("Тип секции не распознан");
             }

@@ -38,7 +38,6 @@ public class ResumeServlet extends HttpServlet {
             writer.write(getResumeByUuid(storage.get(name)));
             setHtmlFromFile(writer, FOOTER);
         }
-
     }
 
     private void setHtmlFromFile(Writer writer, File file) {
